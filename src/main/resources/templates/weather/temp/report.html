@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>天气预报示例</title>
+<!-- 引入 Bootstrap -->
+
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"
+	type="text/css" media="screen">
+
+</head>
+
+
+<body>
+	<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+	<script type="text/javascript" src="/jquery-3.2.1.min.js"></script>
+	<!-- 包括所有已编译的插件 -->
+	<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+
+	<div class="container">
+		<div class="row">
+			<h3 th:text="${reportModel.title}"></h3>
+			<select class="custom-select" id="selectcityID">
+				<option th:each="city : ${reportModel.cityList}"
+					th:value=" ${city.cityId}" th:text="${city.cityName}"
+					th:selected="${city.cityId eq reportModel.cityId}">
+					</option>
+			</select>
+		</div>
+
+		<div class="row">
+			<h1 th:text="${reportModel.weatherdata.city}"></h1>
+		</div>
+		<div class="row">
+			<p>
+				空气质量 <span th:text="${reportModel.weatherdata.aqi}"></span>
+			</p>
+		</div>
+		<div class="row">
+			<p>
+				温馨提示 <span th:text="${reportModel.weatherdata.ganmao}"></span>
+			</p>
+		</div>
+		<div class="row">
+			<p>
+				当前温度 <span th:text="${reportModel.weatherdata.wendu}"></span>
+			</p>
+		</div>
+		<div class="row">
+			<div class="card" th:each="weather : ${reportModel.weatherdata.forecast}">
+				<div class="card-body border-info" >
+					<p class="card-text text-info" th:text="${weather.date}"></p>
+					<p class="card-text text-info" th:text="${weather.high}"></p>
+					<p class="card-text text-info" th:text="${weather.fengli}"></p>
+					<p class="card-text text-info" th:text="${weather.fengxiang}"></p>
+					<p class="card-text text-info" th:text="${weather.type}"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" th:src="@{/js/weatherreport/report.js}" ></script>
+</html>
